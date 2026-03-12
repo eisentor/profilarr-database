@@ -9,8 +9,8 @@ description: 'Targets consistent 1080p x264 WEB-DLs as the primary format. Falls
   - Fallback 2: 720p WEB-DL / Bluray
   - Fallback 3: 576p / 480p / DVD / SDTV (SD last resort)
 
-  x265 and h265 hard-blocked at -999999. HDR formats hard-blocked.
-  Banned groups hard-blocked.'
+  x264/h264 preferred via score bonus; x265/h265 allowed as fallback within tier.
+  HDR formats hard-blocked. Banned groups hard-blocked.'
 tags:
 - 1080p
 - x264
@@ -30,8 +30,12 @@ custom_formats:
 
   # ── 1080p source CFs ─────────────────────────────────────────────────────
   # Scores from: 1080p Balanced, 1080p Quality, 1080p Compact
+  # 1080p WEB-DL (h264) scores higher than generic 1080p WEB-DL so x264
+  # is always preferred over x265 when both exist at 1080p.
+  - name: 1080p WEB-DL (h264)
+    score: 300000           # 1080p Compact (used here to beat generic WEB-DL)
   - name: 1080p WEB-DL
-    score: 280000           # 1080p Balanced
+    score: 280000           # 1080p Balanced (catches non-AVC / x265 WEB-DLs)
   - name: 1080p WEBRip
     score: 280000           # 1080p Quality
   - name: 1080p Bluray
@@ -213,17 +217,17 @@ custom_formats:
   - name: AV1
     score: -999999
   - name: Banned Groups
-    score: -999999
+    score: -999999           # known low-quality groups (YIFY, YTS, FGT, etc.)
   - name: Banned WEBRip
-    score: -999999
+    score: 0                 # WEBRip is a valid format; unknown groups just score nothing
   - name: BCORE
-    score: -999999
+    score: -999999           # Bravia Core — non-standard mastering
   - name: Dolby Vision
     score: -999999
   - name: Full Disc
     score: -999999
   - name: h265
-    score: -999999
+    score: 0                # allowed as fallback within tier, not preferred
   - name: HDR
     score: -999999
   - name: HDR10
@@ -241,7 +245,7 @@ custom_formats:
   - name: VVC
     score: -999999
   - name: x265
-    score: -999999
+    score: 0                # allowed as fallback within tier, not preferred
   - name: Xvid
     score: -999999
 
