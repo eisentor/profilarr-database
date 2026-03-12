@@ -1,0 +1,375 @@
+name: 1080p H264 Primary with Wide Fallback
+description: 'Targets consistent 1080p x264 WEB-DLs as the primary format. Falls
+  back to 2160p WEB-DL/Bluray if no 1080p is available, then 720p, then SD.
+
+  All scores taken directly from the eisentor/profilarr-database (stable branch).
+
+  - Primary: 1080p x264 WEB-DL / Balanced encodes
+  - Fallback 1: 2160p WEB-DL / UHD Bluray
+  - Fallback 2: 720p WEB-DL / Bluray
+  - Fallback 3: 576p / 480p / DVD / SDTV (SD last resort)
+
+  x265 and h265 hard-blocked at -999999. HDR formats hard-blocked.
+  Banned groups hard-blocked.'
+tags:
+- 1080p
+- x264
+- h264
+- Balanced Focused
+- Wide Fallback
+- Lossy Audio
+upgradesAllowed: true
+minCustomFormatScore: 20000
+upgradeUntilScore: 888888
+minScoreIncrement: 1
+
+# ─── CUSTOM FORMAT SCORES ────────────────────────────────────────────────────
+# All scores are taken verbatim from existing profiles in this database.
+# Source profile is noted in comments.
+custom_formats:
+
+  # ── 1080p source CFs ─────────────────────────────────────────────────────
+  # Scores from: 1080p Balanced, 1080p Quality, 1080p Compact
+  - name: 1080p WEB-DL
+    score: 280000           # 1080p Balanced
+  - name: 1080p WEBRip
+    score: 280000           # 1080p Quality
+  - name: 1080p Bluray
+    score: 280000           # 1080p Quality
+  - name: 1080p HDTV
+    score: 340000           # 1080p Compact
+
+  # ── 2160p source CFs ─────────────────────────────────────────────────────
+  # Scores from: 2160p Balanced
+  # Note: 2160p is placed BELOW 1080p in the qualities block, so these
+  # are only grabbed when no 1080p release exists. Scores match the
+  # 2160p Balanced profile verbatim.
+  - name: 2160p WEB-DL
+    score: 440000           # 2160p Balanced
+  - name: UHD Bluray
+    score: 420000           # 2160p Balanced
+
+  # ── 720p source CFs ──────────────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: 720p WEB-DL
+    score: 240000           # 1080p Balanced
+  - name: 720p Bluray
+    score: 180000           # 1080p Balanced
+  - name: 720p WEBRip
+    score: 180000           # 1080p Balanced
+  - name: 720p HDTV
+    score: 240000           # 1080p Compact
+
+  # ── 720p quality release group tiers ─────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: 720p Quality Tier 1
+    score: 85000
+  - name: 720p Quality Tier 2
+    score: 84000
+  - name: 720p Quality Tier 3
+    score: 83000
+  - name: 720p Quality Tier 4
+    score: 82000
+  - name: 720p Quality Tier 5
+    score: 81000
+  - name: 720p Quality Tier 6
+    score: 80000
+
+  # ── SD source CFs ─────────────────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: 576p Bluray
+    score: 120000
+  - name: 480p Bluray
+    score: 80000
+  - name: 480p WEB-DL
+    score: 60000
+  - name: DVD
+    score: 20000
+  - name: DVD Remux
+    score: 20000
+
+  # ── SD quality release group tiers ───────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: 576p Quality Tier 1
+    score: 43000
+  - name: 576p Quality Tier 2
+    score: 42000
+  - name: 576p Quality Tier 3
+    score: 41000
+  - name: 576p Quality Tier 4
+    score: 40000
+  - name: 480p Quality Tier 1
+    score: 23000
+  - name: 480p Quality Tier 2
+    score: 22000
+  - name: 480p Quality Tier 3
+    score: 21000
+  - name: 480p Quality Tier 4
+    score: 20000
+  - name: SD Quality Tier 1
+    score: 11000
+  - name: SD Quality Tier 2
+    score: 10000
+
+  # ── SDTV ──────────────────────────────────────────────────────────────────
+  # Scores from: 1080p Compact
+  - name: SDTV
+    score: 20000
+  - name: SDTV Tier 1
+    score: 10000
+
+  # ── Streaming sources ─────────────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: AMZN
+    score: 3000
+  - name: DSNP
+    score: 3000
+  - name: ATVP
+    score: 2000
+  - name: HMAX
+    score: 2000
+  - name: MAX
+    score: 2000
+  - name: iT
+    score: 1000
+  - name: NF
+    score: 1000
+  - name: CRAV
+    score: 0
+  - name: CRIT
+    score: 0
+  - name: DRPO
+    score: 0
+  - name: HTSR
+    score: 0
+  - name: HULU
+    score: 0
+  - name: iP
+    score: 0
+  - name: MUBI
+    score: 0
+  - name: NOW
+    score: 0
+  - name: PCOK
+    score: 0
+  - name: PLAY
+    score: 0
+  - name: PMTP
+    score: 0
+  - name: ROKU
+    score: 0
+  - name: SHO
+    score: 0
+  - name: STAN
+    score: 0
+
+  # ── Audio ─────────────────────────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: FLAC
+    score: 800
+  - name: DTS-HD HRA
+    score: 700
+  - name: Opus
+    score: 700
+  - name: Dolby Digital +
+    score: 600
+  - name: DTS-ES
+    score: 500
+  - name: Dolby Atmos
+    score: 400
+  - name: Dolby Digital
+    score: 400
+  - name: DTS
+    score: 300
+  - name: AAC
+    score: 200
+
+  # ── WEB-DL release group tiers ────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: WEB-DL Tier 1
+    score: 100
+  - name: WEB-DL Tier 2
+    score: 80
+  - name: WEB-DL Tier 3
+    score: 60
+  - name: WEB-DL Tier 4
+    score: 40
+  - name: WEB-DL Tier 5
+    score: 20
+
+  # ── Repack / Proper flags ─────────────────────────────────────────────────
+  # Scores from: 1080p Balanced
+  - name: Repack3
+    score: 8
+  - name: Repack2
+    score: 7
+  - name: Repack1
+    score: 6
+
+  # ── HARD BLOCKS ───────────────────────────────────────────────────────────
+  # All -999999 sourced from: 1080p Balanced
+  - name: ASL
+    score: -999999
+  - name: AV1
+    score: -999999
+  - name: Banned Groups
+    score: -999999
+  - name: Banned WEBRip
+    score: -999999
+  - name: BCORE
+    score: -999999
+  - name: Dolby Vision
+    score: -999999
+  - name: Full Disc
+    score: -999999
+  - name: h265
+    score: -999999
+  - name: HDR
+    score: -999999
+  - name: HDR10
+    score: -999999
+  - name: HDR10+
+    score: -999999
+  - name: HLG
+    score: -999999
+  - name: PQ
+    score: -999999
+  - name: Remux
+    score: -999999
+  - name: VP9
+    score: -999999
+  - name: VVC
+    score: -999999
+  - name: x265
+    score: -999999
+  - name: Xvid
+    score: -999999
+
+# ─── RADARR-SPECIFIC SCORES ──────────────────────────────────────────────────
+custom_formats_radarr:
+  # 1080p release groups (from: 1080p Balanced radarr section)
+  - name: 1080p Balanced Tier 1
+    score: 281000
+  - name: 1080p Balanced Tier 2
+    score: 280000
+  # 720p balanced (from: 1080p Balanced radarr section)
+  - name: 720p Balanced Tier 1
+    score: 60000
+  # 2160p release groups (from: 2160p Balanced radarr section)
+  - name: 2160p Balanced Tier 1
+    score: 442000
+  - name: 2160p Balanced Tier 2
+    score: 441000
+  - name: 2160p Balanced Tier 3
+    score: 440000
+  # Movie-specific (from: 1080p Balanced radarr section)
+  - name: MA
+    score: 4000
+  - name: Better Theatricals
+    score: 1000
+  - name: Special Edition
+    score: 1000
+  # Hard blocks (from: 1080p Balanced radarr section)
+  - name: 3D
+    score: -999999
+  - name: B&W
+    score: -999999
+  - name: Extras
+    score: -999999
+  - name: Full Disc (Quality Match)
+    score: -999999
+  - name: Remux (Quality Match)
+    score: -999999
+  - name: Sing Along
+    score: -999999
+  - name: Upscale
+    score: -999999
+
+# ─── SONARR-SPECIFIC SCORES ──────────────────────────────────────────────────
+custom_formats_sonarr:
+  # 2160p TV release groups (from: 2160p Balanced sonarr section)
+  - name: 2160p Balanced Tier 1
+    score: 444000
+  # Season packs (from: all profiles sonarr section)
+  - name: Season Pack
+    score: 10
+  # Hard blocks (from: 1080p Balanced sonarr section)
+  - name: Remux (Source)
+    score: -999999
+  - name: TV Extras
+    score: -999999
+  - name: Upscaled
+    score: -999999
+
+# ─── QUALITY GROUPS ──────────────────────────────────────────────────────────
+# Ordered top = most preferred. Radarr/Sonarr upgrades toward the top.
+# 1080p is listed first so it is always preferred when available.
+# 2160p is second — grabbed as fallback, never upgraded over an existing 1080p.
+qualities:
+  - id: -1
+    name: 1080p Primary
+    description: >
+      Primary target. 1080p x264 WEB-DL and Bluray encodes.
+      Radarr/Sonarr will always try to upgrade to this tier.
+    qualities:
+      - id: 10
+        name: Bluray-1080p
+      - id: 9
+        name: WEBDL-1080p
+      - id: 11
+        name: WEBRip-1080p
+      - id: 12
+        name: HDTV-1080p
+
+  - id: -4
+    name: 2160p Fallback
+    description: >
+      4K fallback. Only grabbed when no 1080p release exists.
+      Radarr/Sonarr will upgrade away from this if a 1080p appears.
+    qualities:
+      - id: 4
+        name: Bluray-2160p
+      - id: 5
+        name: WEBDL-2160p
+      - id: 6
+        name: WEBRip-2160p
+
+  - id: -2
+    name: 720p Fallback
+    description: >
+      720p fallback. Only grabbed when neither 1080p nor 2160p is available.
+    qualities:
+      - id: 13
+        name: Bluray-720p
+      - id: 14
+        name: WEBDL-720p
+      - id: 15
+        name: WEBRip-720p
+      - id: 16
+        name: HDTV-720p
+
+  - id: -3
+    name: SD Last Resort
+    description: >
+      SD last resort. Grabbed only when nothing above is available.
+    qualities:
+      - id: 17
+        name: Bluray-576p
+      - id: 18
+        name: Bluray-480p
+      - id: 19
+        name: WEBDL-480p
+      - id: 22
+        name: DVD
+      - id: 24
+        name: SDTV
+
+# Upgrades stop once a 1080p release is obtained
+upgrade_until:
+  id: -1
+  name: 1080p Primary
+  description: >
+    Primary target. 1080p x264 WEB-DL and Bluray encodes.
+    Radarr/Sonarr will always try to upgrade to this tier.
+
+language: must_original
